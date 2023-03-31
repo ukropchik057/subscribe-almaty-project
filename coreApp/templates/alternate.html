@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for company in companies %}
+    <div>
+        <h1>{{ company.slug }}</h1>
+        <h1>{{ company.businessName }}</h1>
+        <h2>{{ company.category }}</h2>
+        <p><a href="tel:+{{ company.phone }}">{{ company.phone }}</a></p>
+        <p>Instagram <a href="https://www.instagram.com/{{ company.instagram }}/">{{ company.instagram }}</a></p>
+        <h4>График работы {{ company.scheduleStart }} - {{ company.scheduleFinish }}</h4>
+        <h4>Адрес {{ company.address }}</h4>
+        <iframe src="{{ company.yandexMapLink }}" width="400" height="400" frameborder="0"></iframe>
+        <hr>
+        <ul>
+            {% for master in company.masters.all %}
+            <li>{{ master }}</li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <ul>
+            {% for service in company.services.all %}
+            <li>{{ service }}</li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <b>rating: {{ company.rating }}</b>
+    </div>
+    {% endfor %}
+</body>
+</html>

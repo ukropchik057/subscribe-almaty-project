@@ -1,0 +1,14 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="about">
+  <div class="container">
+      <h1>О проекте</h1>
+      {% for content in about %}
+      <p style="text-align: justify;">{{ content.content }}</p>
+      {% endfor %}
+  </div>
+</div>
+{% endblock %}

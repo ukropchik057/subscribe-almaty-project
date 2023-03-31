@@ -1,0 +1,94 @@
+{% extends '../base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Мои данные и записи{% endblock %}
+
+{% block content %}
+    <div class="all-service">
+        <div class="container">
+            <div class="card shadow p-3 mb-5 bg-body-tertiary rounded border-0">
+                <div class="circle">
+                   <div class="letters">
+                        {{ user.first_name|make_list|first }}{{ user.last_name|make_list|first }}
+                    </div>
+                </div>
+                {% if messages %}
+                <div id="alert" style="width: 50%; margin: 0 auto;">
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                        {% if user.is_superuser %}
+                        <h3>Статус: Администратор</h3>
+                        <a href="/admin/coreApp/" class="green-link">Панель администратора</a>
+                        {% else %}
+                        <h3>Статус: Пользователь</h3>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2>Действия</h2>
+                        <a href="{% url 'change_password' %}" class="btn btn-outline-primary">Сменить пароль</a>
+                        <a href="{% url 'logoutUser' %}" class="btn btn-outline-danger" >Выйти из аккаунта</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body mb-4">
+                        <h2 class="mb-5">Мои записи</h2>
+                        <div class="row">
+                            <h3 class="text-success">Активные</h3>
+
+                        {% for userQuery in userQueries %}
+                        {% if userQuery.isActive %}
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4>{{ userQuery.business }}</h4>
+                                        <p>Статус: <b class="green-link">Активная заявка</b></p>
+                                        <p>Выбранная услуга: <b>{{ userQuery.service }}</b></p>
+                                        <p>Мастер: <b>{{ userQuery.master }}</b></p>
+                                        <p>Дата и время записи: <b>{{ userQuery.recordDate }}</b></p>
+                                        <a href="{% url 'userDataAndQueryDetail' pk=userQuery.pk %}" class="btn btn-primary">Подробнее</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                         </div>
+
+                         <div class="row">
+                             <h3 class="text-danger mt-5">Отменены</h3>
+
+                             {% for userQuery in userQueries %}
+                            {% if not userQuery.isActive %}
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4>{{ userQuery.business }}</h4>
+                                        <p>Статус: <b class="text-danger">Вы отменили запись</b></p>
+                                        <p>Выбранная услуга: {{ userQuery.service }}</p>
+                                        <p>Мастер: {{ userQuery.master }}</p>
+                                        <p>Дата и время записи: {{ userQuery.recordDate }}</p>
+                                        <a href="{% url 'userDataAndQueryDetail' pk=userQuery.pk %}" class="btn btn-primary">Подробнее</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                             {% endif %}
+                             {% endfor %}
+
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

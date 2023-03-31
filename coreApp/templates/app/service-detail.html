@@ -1,0 +1,53 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block title %}{{ business.businessName }}{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <div class="all-service">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="card shadow p-3 mb-5 bg-body-tertiary rounded border-0">
+                        <h1>{{ business.businessName }}</h1>
+                        <p><a href="#" class="green-link">{{ business.category }}</a></p>
+                        <p><i class="fa-solid fa-clock"></i> График работы: {{ business.scheduleStart}} - {{ business.scheduleFinish }}</p>
+                        <p><i class="fa-solid fa-phone"></i> Телефон: <a class="green-link" href="tel:+{{ business.phone }}">{{ business.phone }}</a></p>
+
+                        <p><i class="fa-solid fa-location-dot"></i> Адрес: <a href="{{ business.yandexMapLink }}" target="_blank" class="green-link">{{ business.address }}</a></p>
+                        <p><i class="fa-brands fa-instagram"></i> Instagram <a class="green-link" href="https://www.instagram.com/{{ business.instagram }}/">{{ business.instagram }}</a></p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3>Мастера</h3>
+                                {% for master in business.masters.all %}
+                                    <span>{{ master }} | </span>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                <h3>Услуги</h3>
+                                {% for service in business.services.all %}
+                                    <p>{{ service }} - {{ service.price }} тг. |</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <a href="{% url 'addQuery' slug=business.slug %}" class="primary-button text-center">Записаться</a>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card shadow p-3 mb-5 bg-body-tertiary rounded border-0">
+                        <iframe src="{{ business.yandexMapLink }}" width="100%" height="400" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="all-service">
+        <div class="container">
+            <div class="alert alert-danger" role="alert">
+              Чтобы работать с системой, войдите или зарегистрируйтесь в систему
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
