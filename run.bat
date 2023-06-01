@@ -1,0 +1,1 @@
+cd venv/Scripts && activate && cd ../.. && python manage.py runserver

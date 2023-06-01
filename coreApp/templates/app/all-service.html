@@ -31,7 +31,7 @@
                                 <h3 class="card-title">{{ business.businessName }}</h3>
                                 <p><a href="{% url 'businessListByCategory' slug=business.category.slug %}" class="green-link">{{ business.category }}</a></p>
                                 <p>График работы: {{ business.scheduleStart}} - {{ business.scheduleFinish }}</p>
-                                <p>Адрес: <a href="{{ business.yandexMapLink }}" target="_blank" class="green-link">{{ business.address }}</a></p>
+                                <p style="font-size:13px;">Адрес: <a href="{{ business.yandexMapLink }}" target="_blank" class="green-link">{{ business.address }}</a></p>
                                 <a href="{% url 'serviceDetail' slug=business.slug %}" class="primary-button text-center">Подробнее</a>
                             </div>
                         </div>

@@ -7,7 +7,7 @@ class DateTimeInput(forms.DateTimeInput):
     input_type = 'datetime-local'
 
 class AddQueryForm(forms.ModelForm):
-     class Meta:
+    class Meta:
          model = Query
          fields = ('business', 'recordDate', 'master', 'service', 'phone')
          widgets = {

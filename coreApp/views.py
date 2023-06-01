@@ -20,7 +20,7 @@ def aboutPage(request):
 def allService(request, slug=None):
     category = None
     categories = Category.objects.all()
-    businesses = Business.objects.all().order_by('-postDate')
+    businesses = Business.objects.all().order_by('-rating')
     if slug:
         category = get_object_or_404(Category, slug=slug)
         businesses = businesses.filter(category=category)
@@ -44,6 +44,7 @@ def allCompanies(request):
 
 
 def addQuery(request, slug):
+    businesses = Business.objects.all()
     business = get_object_or_404(Business, slug=slug)
     if request.method == "POST":
         form = AddQueryForm(request.POST)
@@ -59,7 +60,8 @@ def addQuery(request, slug):
 
     return render(request, "user/add-query.html", {
         'form': form,
-        'business': business
+        'business': business,
+        'businesses': businesses
     })
 
 def deleteUserQuery(request, pk):

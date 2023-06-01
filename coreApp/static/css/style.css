@@ -26,14 +26,14 @@
     height: 60px;
     padding: 16px 18px;
     border-radius: 50%;
-    background: #9c00ff;
+    background: #1cd44c;
     color: #fff;
     transition: 0.3s ease-in-out;
     text-decoration: none;
     font-weight: 900;
 }
 .avatar-link:hover {
-    background: #563d7c;
+    background: #18bc42;
     color: #fff;
 }
 .header-link:hover {
@@ -42,7 +42,7 @@
 .circle {
     width: 100px;
     height: 100px;
-    background-color: #9c00ff;
+    background-color: #1cd44c;
     color: #fff;
     font-weight: 900;
     text-align: center;

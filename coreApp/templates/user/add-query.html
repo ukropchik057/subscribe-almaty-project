@@ -9,10 +9,52 @@
         <div class="container">
             <div class="card shadow p-3 mb-5 bg-body-tertiary rounded border-0">
                 <form method="post">
-                    <h1>Запись</h1>
+                    <h1>Запись на {{ business.businessName }}</h1>
                     {% csrf_token %}
-                    {{ form|crispy }}
-                    <button class="primary-button">Записаться</button>
+
+
+
+                    <div id="div_id_business" class="mb-3"><label for="id_business" class="form-label requiredField">
+                        Компания<span class="asteriskField">*</span> </label> <select name="business"
+                                                                                      class="select form-select"
+                                                                                      required="" id="id_business">
+                        <option value="{{ business.pk }}">{{ business.businessName }}</option>
+
+                    </select></div>
+                    <div id="div_id_recordDate" class="mb-3"><label for="id_recordDate"
+                                                                    class="form-label requiredField">
+                        Дата и время записи<span class="asteriskField">*</span> </label> <input type="datetime-local"
+                                                                                                name="recordDate"
+                                                                                                value="23.05.2023 21:20:01"
+                                                                                                class="datetimeinput form-control"
+                                                                                                required=""
+                                                                                                id="id_recordDate"><input
+                            type="hidden" name="initial-recordDate" value="2023-05-23 21:20:01"
+                            id="initial-id_recordDate"></div>
+                    <div id="div_id_master" class="mb-3"><label for="id_master" class="form-label requiredField">
+                        Мастер<span class="asteriskField">*</span> </label>
+                        <select name="master" class="select form-select" id="id_master">
+                            {% for b in business.masters.all %}
+                                <option value="{{ b.pk }}">{{ b }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                    <div id="div_id_service" class="mb-3"><label for="id_service" class="form-label requiredField">
+                        Услуга<span class="asteriskField">*</span>
+                    </label> <select name="service" class="select form-select" id="id_service">
+                         {% for s in business.services.all %}
+                        <option value="{{s.pk}}">{{s}}</option>
+                         {% endfor %}
+                    </select>
+                    </div>
+                    <div id="div_id_phone" class="mb-3"><label for="id_phone" class="form-label requiredField">
+                        Телефон<span class="asteriskField">*</span> </label> <input type="text" name="phone"
+                                                                                    maxlength="20"
+                                                                                    class="textinput textInput form-control"
+                                                                                    required="" id="id_phone"></div>
+
+
+                    <button class="primary-button" type="submit">Записаться</button>
                 </form>
             </div>
         </div>
